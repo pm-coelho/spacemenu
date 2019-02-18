@@ -16,4 +16,8 @@ setup(
     packages=find_packages(exclude=('test')),
     include_package_data=True,
     install_requires=['pycairo','PyGObject'],
+    entry_points={
+        'console_scripts': ['spacemenu=spacemenu.test:main']
+    }
 )
+

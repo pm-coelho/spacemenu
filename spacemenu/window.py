@@ -17,6 +17,7 @@ class Window:
         if (branch == None):
             branch = self._root
         self.current_branch = branch
+        self._window.set_border_width(self._options['margin'])
         self.set_styles()
 
         (n_rows, content) = branch.get_content(self._options)
@@ -28,7 +29,7 @@ class Window:
         Gtk.main()
 
     def set_styles(self):
-        self._window.set_border_width(self._options['margin'])
+        pass
 
     def set_size(self, n_rows):
         #TODO: externally validate values for options
