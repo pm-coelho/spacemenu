@@ -8,25 +8,34 @@ class Window:
     def __init__(self, root, options):
         self._window = Gtk.Window(title=root['name'])
         self._screen = Gdk.Screen.get_default()
-        self._root = Branch(root['name'], root['branches'], root['leaves'])
+        self._root = Branch(root['name'], root['branches'], root['leaves'], self.redraw)
         self.on_kill()
         # TODO: set default options
         self._options = options
 
-    def draw(self, branch = None):
-        if (branch == None):
-            branch = self._root
-        self.current_branch = branch
+    def draw(self):
+        self.current_branch = self._root
         self._window.set_border_width(self._options['margin'])
         self.set_styles()
 
-        (n_rows, content) = branch.get_content(self._options)
-        self.set_size(n_rows)
-        self.place()
+        self._root.gen_content(self._options)
 
-        self._window.add(content)
+        self.set_size(self._root.n_rows)
+        self.place()
+        self._window.add(self._root.content)
         self._window.show_all()
         Gtk.main()
+
+    def redraw(self, button, branch):
+        self.current_branch = branch
+        for e in self._window.get_children():
+            self._window.remove(e)
+        branch.gen_content(self._options)
+        # TODO: remove old content
+        self.set_size(branch.n_rows)
+        self.place()
+        self._window.add(branch.content)
+        self._window.show_all()
 
     def set_styles(self):
         pass

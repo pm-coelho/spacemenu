@@ -11,14 +11,14 @@ from .leaf import Leaf
 # TODO: auto generate quit button
 
 class Branch(Node):
-    def __init__(self, name, branches, leaves):
-        super(Branch, self).__init__(name)
-        self._branches = [Branch(b['name'], b['branches'], b['leaves']) for b in branches]
-        self._leaves = [Leaf(l['name']) for l in leaves]
+    def __init__(self, name, branches, leaves, command):
+        super(Branch, self).__init__(name, command, self)
+        self._branches = [Branch(b['name'], b['branches'], b['leaves'], command) for b in branches]
+        self._leaves = [Leaf(l['name'], l['command']) for l in leaves]
         self.gen_shortcuts()
 
 
-    def get_content(self, options):
+    def gen_content(self, options):
         grid = Gtk.Grid()
         grid.set_column_spacing(options['column_spacing'])
         grid.set_row_spacing(options['row_spacing'])
@@ -26,12 +26,14 @@ class Branch(Node):
         grid.set_row_homogeneous(True)
         buttons = [b.get_button() for b in self._branches + self._leaves if b.shortcut != None]
 
+        row = 0
         for i, b in enumerate(buttons):
             row = int(i / (options['max_columns']))
             column = i % (options['max_columns'])
             grid.attach(b, column, row, 1, 1)
 
-        return (row + 1 , grid)
+        self.content = grid
+        self.n_rows = row + 1
 
 
     def gen_shortcuts(self):
