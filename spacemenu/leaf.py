@@ -9,7 +9,8 @@ class Leaf(Node):
     def __init__(self, name, command):
         super(Leaf, self).__init__(name, self.exec, command)
 
+
     def exec(self, button, command):
         #TODO: this is a security vuln:https://docs.python.org/2/library/subprocess.html#frequently-used-arguments
-        os.system(command)
         Gtk.main_quit()
+        os.system(command)

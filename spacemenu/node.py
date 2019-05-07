@@ -9,8 +9,10 @@ class Node:
         self.command = command
         self.args = args
 
+
     def set_shortcut(self, shortcut):
         self.shortcut = shortcut
+
 
     def get_button(self):
         # button = Gtk.Button.new_with_label(
@@ -34,4 +36,3 @@ class Node:
             c.set_use_markup(True)
 
         return button
-

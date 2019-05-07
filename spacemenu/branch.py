@@ -10,13 +10,13 @@ from .leaf import Leaf
 # TODO: auto generate back button
 # TODO: auto generate quit button
 
+
 class Branch(Node):
     def __init__(self, name, branches, leaves, command):
         super(Branch, self).__init__(name, command, self)
         self._branches = [Branch(b['name'], b['branches'], b['leaves'], command) for b in branches]
         self._leaves = [Leaf(l['name'], l['command']) for l in leaves]
         self.gen_shortcuts()
-
 
     def gen_content(self, options):
         grid = Gtk.Grid()
@@ -39,6 +39,7 @@ class Branch(Node):
     def gen_shortcuts(self):
         [b.set_shortcut(self.gen_shortcut(b.name)) for b in self._branches]
         [l.set_shortcut(self.gen_shortcut(l.name)) for l in self._leaves]
+
 
     def gen_shortcut(self, name):
         shortcut = None

@@ -10,7 +10,7 @@ def main():
                     'branches': [],
                     'leaves':[
                     {'name': 'a', 'command': 'pass show -c cloud/nextcloud'},
-                    {'name': 'a', 'command': 'a'},
+                    {'name': 'a', 'command': 'echo A'},
                     ]
                 },{
                     'name': 'test branch 2',
@@ -22,8 +22,10 @@ def main():
                     'leaves':[]
                 }],
                 'leaves':[
-                    {'name': 'a', 'command': lambda x: 'a'},
-                    {'name': 'a', 'command': lambda x: 'a'},
+                    {'name': 'a', 'command': 'echo a'},
+                    {'name': 'b', 'command': 'echo b'},
+                    {'name': 'c', 'command': 'echo c'},
+                    {'name': 'd', 'command': 'echo d'},
                     # {'name': 'b'},
                     # {'name': 'b'},
                     # {'name': 'c'},
@@ -78,6 +80,7 @@ def main():
                 'column_spacing': 1,
                 'row_spacing': 1,
                 'max_columns': 5,
-                'row_height': 35
+                'row_height': 35,
             })
+
     window.draw()
