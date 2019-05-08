@@ -5,7 +5,6 @@ from gi.repository import Gtk, Gdk, GObject
 from .branch import _Branch
 from .options import Options
 
-# TODO: order output
 class Window:
     def __init__(self, root, options = None):
         self._options = options if isinstance(options, Options) else Options(options)

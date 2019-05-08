@@ -7,18 +7,21 @@ from random import choice
 from .node import _Node
 from .leaf import _Leaf
 
-# TODO: auto generate back button
-# TODO: auto generate quit button
 
 class _Branch(_Node):
     def __init__(self, label, branches, leaves):
         super(_Branch, self).__init__(label)
-        self._branches = [_Branch(b['label'], b['branches'], b['leaves']) for b in branches]
-        self._leaves = [_Leaf(l['label'], l['command']) for l in leaves]
+        self._branches = sorted(
+            [_Branch(b['label'], b['branches'], b['leaves']) for b in branches],
+            key = lambda b: b.label
+        )
+        self._leaves = sorted(
+            [_Leaf(l['label'], l['command']) for l in leaves],
+            key = lambda l: l.label
+        )
         self._gen_shortcuts()
 
 
-    # TODO: set reserved shortcuts
     def _gen_shortcuts(self):
         [b.set_shortcut(self._get_shortcut(b.label)) for b in self._branches]
         [l.set_shortcut(self._get_shortcut(l.label)) for l in self._leaves]
