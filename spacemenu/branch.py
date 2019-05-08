@@ -43,7 +43,9 @@ class _Branch(_Node):
                 print('Shortcut limit reached! ignoring further shortcuts')
                 return
 
-            if (prop_shortcut not in used_shortcuts):
+            if (prop_shortcut not in string.ascii_letters):
+                letters = letters[1:]
+            elif (prop_shortcut not in used_shortcuts):
                 shortcut = prop_shortcut
             elif (prop_shortcut.swapcase() not in used_shortcuts):
                 shortcut = prop_shortcut.swapcase()
