@@ -9,7 +9,6 @@ from .leaf import Leaf
 
 # TODO: auto generate back button
 # TODO: auto generate quit button
-# TODO: lazely load branches
 
 class Branch(Node):
     def __init__(self, label, branches, leaves):
@@ -64,16 +63,16 @@ class Branch(Node):
 
     def gen_content(self, options):
         grid = Gtk.Grid()
-        grid.set_column_spacing(options['column_spacing'])
-        grid.set_row_spacing(options['row_spacing'])
+        grid.set_column_spacing(options.column_spacing)
+        grid.set_row_spacing(options.row_spacing)
         grid.set_column_homogeneous(True)
         grid.set_row_homogeneous(True)
         buttons = [b.get_button() for b in self._branches + self._leaves if b.shortcut != None]
 
         row = 0
         for i, b in enumerate(buttons):
-            row = int(i / (options['max_columns']))
-            column = i % (options['max_columns'])
+            row = int(i / (options.max_columns))
+            column = i % (options.max_columns)
             grid.attach(b, column, row, 1, 1)
 
         self.content = grid

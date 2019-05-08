@@ -3,18 +3,19 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GObject
 
 from .branch import Branch
+from .options import Options
 
+# TODO: make private classes "private" (use _)
 class Window:
-    def __init__(self, root, options):
-        # TODO: set default options
-        # TODO: externally validate values for options
-        self._options = options
+    def __init__(self, root, options = None):
+        self._options = Options(options)
 
         self._window = Gtk.Window(title=root['label'])
         self._screen = Gdk.Screen.get_default()
         self._display = self._screen.get_display()
         self._monitor = self._display.get_monitor_at_window(self._screen.get_root_window())
 
+        # TODO: validate values for root
         self._root = Branch(root['label'], root['branches'], root['leaves'])
         self._init_signals()
 
@@ -56,9 +57,9 @@ class Window:
 
 
     def _set_size(self, n_rows):
-        row_height = self._options['row_height']
-        row_spacing = self._options['row_spacing']
-        margin = self._options['margin']
+        row_height = self._options.row_height
+        row_spacing = self._options.row_spacing
+        margin = self._options.margin
 
         self._width = self._monitor.get_geometry().width
         self._height = (margin * 2 ) + (n_rows * (row_height + row_spacing))
@@ -96,6 +97,6 @@ class Window:
 
 
     def draw(self):
-        self._window.set_border_width(self._options['margin'])
+        self._window.set_border_width(self._options.margin)
         self._draw_contents(self._root);
         Gtk.main()

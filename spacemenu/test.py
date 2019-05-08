@@ -86,12 +86,7 @@ def main():
                     # {'label': 'z'},
                     # {'label': 'z'},
                 ]
-            }, {
-                'margin': 10,
-                'column_spacing': 1,
-                'row_spacing': 1,
-                'max_columns': 5,
-                'row_height': 35,
-            })
+            }
+            )
 
     window.draw()
