@@ -5,9 +5,9 @@ import os
 class Leaf(Node):
     def __init__(self, name, command):
         super(Leaf, self).__init__(name)
-        self.command = command
+        self._command = command
 
 
     def exec(self):
         #TODO: this is a security vuln:https://docs.python.org/2/library/subprocess.html#frequently-used-arguments
-        os.system(self.command)
+        os.system(self._command)
