@@ -8,7 +8,7 @@ from .options import Options
 # TODO: make private classes "private" (use _)
 class Window:
     def __init__(self, root, options = None):
-        self._options = Options(options)
+        self._options = options if isinstance(options, Options) else Options(options)
 
         self._window = Gtk.Window(title=root['label'])
         self._screen = Gdk.Screen.get_default()

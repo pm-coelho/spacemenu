@@ -1,5 +1,6 @@
 
 from .window import Window
+from .options import Options
 
 
 def main():
@@ -86,7 +87,8 @@ def main():
                     # {'label': 'z'},
                     # {'label': 'z'},
                 ]
-            }
-            )
+            },Options({
+                'row_height': 100
+            }))
 
     window.draw()
