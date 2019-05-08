@@ -23,7 +23,6 @@ class _Node:
             label= self.label
         ))
 
-        print(button.get_default_style())
         button.connect('clicked', self._on_click, None)
 
         for c in button.get_children():
