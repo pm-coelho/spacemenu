@@ -17,19 +17,13 @@ class _Node:
 
 
     def get_button(self):
-        # button = Gtk.Button.new_with_label(
-        #     '''
-        #     <span background='#80da25'><b>{shortcut:1}</b></span>\
-        #     <span background='#458588'><b>{separator:2}</b></span>\
-        #     <span>{name:10}</span>\
-        #     '''.format(shortcut=self.shortcut, separator='->',name= self.label)
-        # )
         button = Gtk.Button.new_with_label('{shortcut:1}{separator:2}{label:10}'.format(
             shortcut = self.shortcut,
             separator = '->',
             label= self.label
         ))
 
+        print(button.get_default_style())
         button.connect('clicked', self._on_click, None)
 
         for c in button.get_children():
