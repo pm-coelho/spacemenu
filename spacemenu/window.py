@@ -1,6 +1,6 @@
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk, Gdk, GObject
 
 from .branch import Branch
 
@@ -15,48 +15,52 @@ class Window:
         self._display = self._screen.get_display()
         self._monitor = self._display.get_monitor_at_window(self._screen.get_root_window())
 
-        self._root = Branch(root['name'], root['branches'], root['leaves'], self.redraw)
+        self._root = Branch(root['name'], root['branches'], root['leaves'])
 
-        self.on_kill()
+        self.init_signals()
+
+
+    def init_signals(self):
+        GObject.signal_new(
+            'branch',
+            self._window,
+            GObject.SignalFlags.RUN_FIRST,
+            None,
+            (GObject.TYPE_PYOBJECT,)
+        )
+
+        GObject.signal_new(
+            'leaf',
+            self._window,
+            GObject.SignalFlags.RUN_FIRST,
+            None,
+            (GObject.TYPE_PYOBJECT,)
+        )
+
+        self._window.connect('key-press-event', self.on_key_press)
+        self._window.connect('branch', self.open_branch)
+        self._window.connect('leaf', self.exec_leaf)
+        self._window.connect('destroy', Gtk.main_quit)
 
 
     def draw(self):
-        self.current_branch = self._root
-
         self._window.set_border_width(self._options['margin'])
-        self.set_styles()
-
-        self._root.gen_content(self._options)
-
-        self._window.connect('key-press-event', self.on_key_press)
-
-        self.set_size(self._root.n_rows)
-        self.place()
-        self._window.add(self._root.content)
-        self._window.show_all()
+        self.draw_contents(self._root);
         Gtk.main()
 
 
-    def redraw(self, button, branch):
+    def draw_contents(self, branch):
+        self.current_branch = branch
+
         for e in self._window.get_children():
             self._window.remove(e)
 
-        self.current_branch = branch
         branch.gen_content(self._options)
 
         self.set_size(branch.n_rows)
         self.place()
         self._window.add(branch.content)
         self._window.show_all()
-
-    def on_key_press(self, window, event):
-        print('widget: ', window)
-        print('modifier: ', event.state)
-        print('key val, name: ', event.keyval, Gdk.keyval_name(event.keyval))
-        pass
-
-    def set_styles(self):
-        pass
 
 
     def set_size(self, n_rows):
@@ -76,5 +80,25 @@ class Window:
         self._window.move(0, screen_height - self._height)
 
 
-    def on_kill(self):
-        self._window.connect('destroy', Gtk.main_quit)
+    def on_key_press(self, window, event):
+        key = Gdk.keyval_name(event.keyval)
+
+        branch = self.current_branch.get_child_branch(key)
+        if (branch):
+            self._window.emit('branch', branch)
+            return
+
+        leaf = self.current_branch.get_child_leaf(key)
+        if (leaf):
+            self._window.emit('leaf', leaf)
+            return
+
+
+    def open_branch(self, widget, branch):
+        self.draw_contents(branch)
+        pass
+
+
+    def exec_leaf(self, widget, leaf):
+        leaf.exec()
+        pass

@@ -9,12 +9,12 @@ from .leaf import Leaf
 
 # TODO: auto generate back button
 # TODO: auto generate quit button
-
+# TODO: lazely load branches
 
 class Branch(Node):
-    def __init__(self, name, branches, leaves, command):
-        super(Branch, self).__init__(name, command, self)
-        self._branches = [Branch(b['name'], b['branches'], b['leaves'], command) for b in branches]
+    def __init__(self, name, branches, leaves):
+        super(Branch, self).__init__(name)
+        self._branches = [Branch(b['name'], b['branches'], b['leaves']) for b in branches]
         self._leaves = [Leaf(l['name'], l['command']) for l in leaves]
         self.gen_shortcuts()
 
@@ -69,3 +69,11 @@ class Branch(Node):
 
     def get_used_shortcuts(self):
         return [x.shortcut for x in self._leaves + self._branches if x.shortcut != None]
+
+
+    def get_child_branch(self, shortcut):
+        return next((b for b in self._branches if b.shortcut == shortcut), None)
+
+
+    def get_child_leaf(self, shortcut):
+        return next((l for l in self._leaves if l.shortcut == shortcut), None)

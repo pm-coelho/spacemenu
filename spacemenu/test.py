@@ -7,10 +7,19 @@ def main():
                 'name': 'test window',
                 'branches': [{
                     'name': 'test branch 1',
-                    'branches': [],
+                    'branches': [
+                        {
+                            'name': 'a',
+                            'branches':[],
+                            'leaves': [
+                                {'name': 'a', 'command': 'pass show -c cloud/nextcloud'},
+                                {'name': 'a', 'command': 'echo A'},
+                            ]
+                        },
+                    ],
                     'leaves':[
-                    {'name': 'a', 'command': 'pass show -c cloud/nextcloud'},
-                    {'name': 'a', 'command': 'echo A'},
+                        {'name': 'a', 'command': 'pass show -c cloud/nextcloud'},
+                        {'name': 'a', 'command': 'echo A'},
                     ]
                 },{
                     'name': 'test branch 2',
@@ -24,7 +33,7 @@ def main():
                 'leaves':[
                     {'name': 'a', 'command': 'echo a'},
                     {'name': 'b', 'command': 'echo b'},
-                    {'name': 'c', 'command': 'echo c'},
+                    {'name': 'c', 'command': 'pass show -c avnoconn/jenkins'},
                     {'name': 'd', 'command': 'echo d'},
                     # {'name': 'b'},
                     # {'name': 'b'},

@@ -3,11 +3,9 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk
 
 class Node:
-    def __init__(self, name, command, args):
+    def __init__(self, name):
         self.name = name
         self.shortcut = None
-        self.command = command
-        self.args = args
 
 
     def set_shortcut(self, shortcut):
@@ -28,7 +26,7 @@ class Node:
             name = self.name
         ))
 
-        button.connect('clicked', self.command, self.args)
+        button.connect('clicked', self.on_click, None)
 
         for c in button.get_children():
             c.set_justify(Gtk.Justification.LEFT)
@@ -36,3 +34,8 @@ class Node:
             c.set_use_markup(True)
 
         return button
+
+    def on_click(self, button, args):
+        type = self.__class__.__name__.lower()
+        window = button.get_parent().get_parent()
+        window.emit(type, self)
