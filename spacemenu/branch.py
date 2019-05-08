@@ -4,17 +4,17 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from random import choice
 
-from .node import Node
-from .leaf import Leaf
+from .node import _Node
+from .leaf import _Leaf
 
 # TODO: auto generate back button
 # TODO: auto generate quit button
 
-class Branch(Node):
+class _Branch(_Node):
     def __init__(self, label, branches, leaves):
-        super(Branch, self).__init__(label)
-        self._branches = [Branch(b['label'], b['branches'], b['leaves']) for b in branches]
-        self._leaves = [Leaf(l['label'], l['command']) for l in leaves]
+        super(_Branch, self).__init__(label)
+        self._branches = [_Branch(b['label'], b['branches'], b['leaves']) for b in branches]
+        self._leaves = [_Leaf(l['label'], l['command']) for l in leaves]
         self._gen_shortcuts()
 
 

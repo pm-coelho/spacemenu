@@ -1,10 +1,10 @@
-from .node import Node
+from .node import _Node
 
 import os
 
-class Leaf(Node):
-    def __init__(self, name, command):
-        super(Leaf, self).__init__(name)
+class _Leaf(_Node):
+    def __init__(self, label, command):
+        super(_Leaf, self).__init__(label)
         self._command = command
 
 

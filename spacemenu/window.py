@@ -2,10 +2,9 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GObject
 
-from .branch import Branch
+from .branch import _Branch
 from .options import Options
 
-# TODO: make private classes "private" (use _)
 class Window:
     def __init__(self, root, options = None):
         self._options = options if isinstance(options, Options) else Options(options)
@@ -16,7 +15,7 @@ class Window:
         self._monitor = self._display.get_monitor_at_window(self._screen.get_root_window())
 
         # TODO: validate values for root
-        self._root = Branch(root['label'], root['branches'], root['leaves'])
+        self._root = _Branch(root['label'], root['branches'], root['leaves'])
         self._init_signals()
 
 

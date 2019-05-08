@@ -2,7 +2,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
-class Node:
+class _Node:
     def __init__(self, label):
         self.label = label
         self.shortcut = None
