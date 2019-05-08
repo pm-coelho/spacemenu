@@ -24,7 +24,9 @@ def main():
                 },{
                     'name': 'test branch 2',
                     'branches': [],
-                    'leaves':[]
+                    'leaves':[
+                        {'name': 'a', 'command': 'pass show -c cloud/nextcloud'},
+                    ]
                 },{
                     'name': 'test branch 3',
                     'branches': [],

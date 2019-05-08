@@ -71,13 +71,13 @@ class Window:
         self._width = self._monitor.get_geometry().width
         self._height = (margin * 2 ) + (n_rows * (row_height + row_spacing))
 
-        self._window.set_default_size(self._width, self._height)
+        self._window.resize(self._width, self._height)
 
 
     def place(self):
         screen_height = self._screen.get_height()
         self._window.set_gravity(Gdk.Gravity.SOUTH_WEST)
-        self._window.move(0, screen_height - self._height)
+        self._window.move(self._monitor.get_workarea().x, screen_height - self._height)
 
 
     def on_key_press(self, window, event):
@@ -101,4 +101,5 @@ class Window:
 
     def exec_leaf(self, widget, leaf):
         leaf.exec()
+        Gtk.main_quit()
         pass
