@@ -18,6 +18,7 @@ class _Branch(_Node):
         self._gen_shortcuts()
 
 
+    # TODO: set reserved shortcuts
     def _gen_shortcuts(self):
         [b.set_shortcut(self._get_shortcut(b.label)) for b in self._branches]
         [l.set_shortcut(self._get_shortcut(l.label)) for l in self._leaves]
@@ -50,7 +51,7 @@ class _Branch(_Node):
 
 
     def _get_used_shortcuts(self):
-        return [x.shortcut for x in self._leaves + self._branches if x.shortcut != None]
+        return [x.shortcut for x in self._leaves + self._branches if x.shortcut != None] + ['b','q']
 
 
     def get_child_branch(self, shortcut):

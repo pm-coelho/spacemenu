@@ -33,8 +33,8 @@ def main():
                     'leaves':[]
                 }],
                 'leaves':[
-                    {'label': 'a', 'command': 'echo a'},
                     {'label': 'b', 'command': 'echo b'},
+                    {'label': 'a', 'command': 'echo a'},
                     {'label': 'c', 'command': 'pass show -c avnoconn/jenkins'},
                     {'label': 'd', 'command': 'echo d'},
                     # {'label': 'b'},

@@ -5,6 +5,7 @@ from gi.repository import Gtk, Gdk, GObject
 from .branch import _Branch
 from .options import Options
 
+# TODO: order output
 class Window:
     def __init__(self, root, options = None):
         self._options = options if isinstance(options, Options) else Options(options)
@@ -14,7 +15,6 @@ class Window:
         self._display = self._screen.get_display()
         self._monitor = self._display.get_monitor_at_window(self._screen.get_root_window())
 
-        # TODO: validate values for root
         self._root = _Branch(root['label'], root['branches'], root['leaves'])
         self._init_signals()
 
@@ -43,6 +43,7 @@ class Window:
 
 
     def _draw_contents(self, branch):
+        self._previous_branch = self._current_branch if hasattr(self,'_current_branch') else None
         self._current_branch = branch
 
         [self._window.remove(e) for e in self._window.get_children()]
@@ -74,6 +75,16 @@ class Window:
 
     def _on_key_press(self, window, event):
         key = Gdk.keyval_name(event.keyval)
+
+        if (key == 'q'):
+            Gtk.main_quit()
+            return
+
+        if (key == 'b'):
+            if (self._previous_branch):
+                self._window.emit('branch', self._previous_branch)
+            else:
+                Gtk.main_quit()
 
         branch = self._current_branch.get_child_branch(key)
         if (branch):

@@ -4,6 +4,10 @@ from gi.repository import Gtk
 
 class _Node:
     def __init__(self, label):
+
+        if (not label):
+            raise ValueError('missing label for some Node')
+
         self.label = label
         self.shortcut = None
 
