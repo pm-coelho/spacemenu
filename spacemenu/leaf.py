@@ -5,10 +5,6 @@ import os
 class _Leaf(_Node):
     def __init__(self, label, command):
         super(_Leaf, self).__init__(label)
-
-        if (not command):
-            raise ValueError('No command defined for leaf %s'.format(label))
-
         self._command = command
 
 

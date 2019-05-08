@@ -4,10 +4,6 @@ from gi.repository import Gtk
 
 class _Node:
     def __init__(self, label):
-
-        if (not label):
-            raise ValueError('missing label for some Node')
-
         self.label = label
         self.shortcut = None
 
@@ -22,11 +18,11 @@ class _Node:
 
     def get_button(self):
         # button = Gtk.Button.new_with_label(
-        #     '''\
+        #     '''
         #     <span background='#80da25'><b>{shortcut:1}</b></span>\
         #     <span background='#458588'><b>{separator:2}</b></span>\
         #     <span>{name:10}</span>\
-        #     '''.format(shortcut=self.shortcut, separator='->',name= self.name)
+        #     '''.format(shortcut=self.shortcut, separator='->',name= self.label)
         # )
         button = Gtk.Button.new_with_label('{shortcut:1}{separator:2}{label:10}'.format(
             shortcut = self.shortcut,
