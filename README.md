@@ -58,9 +58,11 @@ More options will be added
 draw() -> draw the window
 
 ### Options
-The class Options represents the options allowed to customize the display of the menu
-#### Properties
-#### Methods
+  * margin: Inner margin for the window
+  * column-spacing: Spacing between each column
+  * row-spacing: Spacing between each row
+  * max-columns: Maximum number of columns to display
+  * row-height: The height of the buttons in each row
 
 ## TODO
 

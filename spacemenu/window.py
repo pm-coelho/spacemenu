@@ -71,13 +71,14 @@ class Window:
     def _place(self):
         screen_height = self._screen.get_height()
         self._window.set_gravity(Gdk.Gravity.SOUTH_WEST)
-        self._window.move(self._monitor.get_workarea().x, screen_height - self._height)
+        (x, y)= self._window.get_position()
+        self._window.move(x, screen_height - self._height)
 
 
     def _on_key_press(self, window, event):
         key = Gdk.keyval_name(event.keyval)
 
-        if (key == 'q'):
+        if (key == 'q' or key == 'Escape'):
             Gtk.main_quit()
             return
 
