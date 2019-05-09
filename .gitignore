@@ -1,3 +1,6 @@
 spacemenu-env
+build
+dist
+spacemenu.egg-info
 **/__pycache__
 .#*

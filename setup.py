@@ -6,19 +6,25 @@ def readme():
 
 setup(
     name='spacemenu',
-    version='0.1',
+    version='0.1a1',
     author='pmcoelho',
     author_email='pmcoelho@protonmail.com',
     url='https://github.com/pm-coelho/spacemenu',
-    description='A spacemacs inspired gtk library',
+    description='A spacemacs menu inspired gtk module',
     long_description=readme(),
+    long_description_content_type="text/markdown",
     license='GPLv3+',
     packages=find_packages(exclude=('test')),
     include_package_data=True,
     install_requires=['pycairo','PyGObject'],
-    # TODO: remove entry point
-    entry_points={
-        'console_scripts': ['spacemenu=spacemenu.test:main']
-    }
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Environment :: X11 Applications',
+        'Environment :: X11 Applications :: GTK',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+        'Operating System :: POSIX :: Linux',
+        'Topic :: Software Development :: Libraries :: Python Modules'
+    ]
 )
 
