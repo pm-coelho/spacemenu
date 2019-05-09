@@ -6,7 +6,7 @@ class Options:
         self._parse()
         self._set_defaults()
         self._validate_limits()
-        self._validate_types()
+        self._convert_types()
 
 
     def _parse(self):
@@ -31,17 +31,12 @@ class Options:
             raise ValueError('Options.row_height minimum value is 35')
 
 
-    def _validate_types(self):
-        if not isinstance(self.margin, Number):
-            raise ValueError('Expected Options.margin to be a Number')
-        if not isinstance(self.column_spacing, Number):
-            raise ValueError('Expected Options.column_spacing to be a Number')
-        if not isinstance(self.row_spacing, Number):
-            raise ValueError('Expected Options.margin to be a Number')
-        if not isinstance(self.max_columns, Number):
-            raise ValueError('Expected Options.max_columns to be a Number')
-        if not isinstance(self.row_height, Number):
-            raise ValueError('Expected Options.row_height to be a Number')
+    def _convert_types(self):
+        self.margin = int(self.margin)
+        self.column_spacing = int(self.column_spacing)
+        self.row_spacing = int(self.row_spacing)
+        self.max_columns = int(self.max_columns)
+        self.row_height = int(self.row_height)
 
 
     def get_dictionary(self):
