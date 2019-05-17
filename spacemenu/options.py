@@ -16,6 +16,9 @@ class Options:
         self.row_spacing = o['row_spacing'] if 'row_spacing' in o else None
         self.max_columns = o['max_columns'] if 'max_coluns' in o else None
         self.row_height = o['row_height'] if 'row_height' in o else None
+        self.background_color = o['background_color'] if 'background_color' in o else None
+        self.button_background_color = o['button_background_color'] if 'button_background_color' in o else None
+        self.button_text_color = o['button_text_color'] if 'button_text_color' in o else None
 
 
     def _set_defaults(self):
@@ -45,5 +48,8 @@ class Options:
             'column_spacing': self.column_spacing,
             'row_spacing': self.row_spacing,
             'max_columns': self.max_columns,
-            'row_height': self.row_height
+            'row_height': self.row_height,
+            'background_color': self.background_color,
+            'button_background_color': self.button_background_color,
+            'button_text_color': self.button_text_color,
         }

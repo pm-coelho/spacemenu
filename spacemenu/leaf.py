@@ -3,8 +3,8 @@ from .node import _Node
 import os
 
 class _Leaf(_Node):
-    def __init__(self, label, command):
-        super(_Leaf, self).__init__(label)
+    def __init__(self, label, command, style_provider):
+        super(_Leaf, self).__init__(label, style_provider)
         self._command = command
 
 

@@ -9,14 +9,14 @@ from .leaf import _Leaf
 
 
 class _Branch(_Node):
-    def __init__(self, label, branches, leaves):
-        super(_Branch, self).__init__(label)
+    def __init__(self, label, branches, leaves, style_provider):
+        super(_Branch, self).__init__(label, style_provider)
         self._branches = sorted(
-            [_Branch(b['label'], b['branches'], b['leaves']) for b in branches],
+            [_Branch(b['label'], b['branches'], b['leaves'], style_provider) for b in branches],
             key = lambda b: b.label
         )
         self._leaves = sorted(
-            [_Leaf(l['label'], l['command']) for l in leaves],
+            [_Leaf(l['label'], l['command'], style_provider) for l in leaves],
             key = lambda l: l.label
         )
         self._gen_shortcuts()

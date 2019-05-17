@@ -16,7 +16,9 @@ class Window:
         self._display = self._screen.get_display()
         self._monitor = self._display.get_monitor_at_window(self._screen.get_root_window())
 
-        self._root = _Branch(root['label'], root['branches'], root['leaves'])
+        self._set_window_style(self._options)
+
+        self._root = _Branch(root['label'], root['branches'], root['leaves'], self._style_provider)
         self._init_signals()
 
 
@@ -107,6 +109,30 @@ class Window:
         leaf.exec()
         Gtk.main_quit()
 
+
+    def _set_window_style(self, options):
+        self._style_provider = Gtk.CssProvider()
+        self._style_provider.load_from_data(self._construct_css(options))
+        self._window.get_style_context().add_provider(
+            self._style_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
+
+
+    def _construct_css(self, options):
+        styles = ''
+        if (options.background_color):
+            styles += 'window {{background-color: #{} }}'.format(options.background_color)
+
+        if (options.button_background_color or options.button_text_color):
+            styles += 'button {{{}; {} }}'.format(
+                'background-color: #{}'.format(
+                    options.button_background_color) if options.button_background_color else '',
+                'color: #{}'.format(
+                    options.button_text_color) if options.button_text_color else ''
+            )
+
+        return bytes(styles.encode())
 
     def draw(self):
         self._window.set_border_width(self._options.margin)

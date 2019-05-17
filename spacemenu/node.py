@@ -3,7 +3,8 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
 class _Node:
-    def __init__(self, label):
+    def __init__(self, label, style_provider):
+        self._style_provider = style_provider
         self.label = label
         self.shortcut = None
 
@@ -24,6 +25,11 @@ class _Node:
         ))
 
         button.connect('clicked', self._on_click, None)
+
+        button.get_style_context().add_provider(
+            self._style_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
 
         for c in button.get_children():
             c.set_justify(Gtk.Justification.LEFT)
