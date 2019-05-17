@@ -49,7 +49,14 @@ options -> Options can either be a dictonary or an Options object
   "column_spacing": 1,
   "row_spacing": 1,
   "max_columns": 5,
-  "row_height": 35
+  "row_height": 35,
+  "margin_left": 0,
+  "margin_right": 0,
+  "margin_bottom": 0,
+  "background_color": "#ffffff"
+  "button_background_color": "#ffffff"
+  "button_text_color": "#ffffff"
+  "font": "italic bold 12px Georgia, serif",
 }
 ```
 More options will be added
@@ -58,11 +65,23 @@ More options will be added
 draw() -> draw the window
 
 ### Options
-  * margin: Inner margin for the window
-  * column-spacing: Spacing between each column
-  * row-spacing: Spacing between each row
-  * max-columns: Maximum number of columns to display
-  * row-height: The height of the buttons in each row
+#### Outer Shape
+  * margin_left: Sets outer left margin (in px)
+  * margin_right: Sets outer right margin (in px)
+  * margin_bottom: Sets outer bottom margin (in px)
+
+#### Inner Shap
+  * inner_margin: Inner margin for the window
+  * column_spacing: Spacing between each column
+  * row_spacing: Spacing between each row
+  * max_columns: Maximum number of columns to display
+  * row_height: The height of the buttons in each row
+  * font: Font to be used by the labels
+  
+#### Colors
+  * background_color: The color for the window background (#rrggbb)
+  * button_background_color: The color for the button background (#rrggbb)
+  * button_text_color: The color for the text of the buttons(#rrggbb)
 
 ## TODO
 
