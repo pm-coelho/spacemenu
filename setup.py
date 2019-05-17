@@ -6,7 +6,7 @@ def readme():
 
 setup(
     name='spacemenu',
-    version='0.2',
+    version='0.3',
     author='pmcoelho',
     author_email='pmcoelho@protonmail.com',
     url='https://github.com/pm-coelho/spacemenu',
