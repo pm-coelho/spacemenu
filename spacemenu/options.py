@@ -19,6 +19,7 @@ class Options:
         self.background_color = o['background_color'] if 'background_color' in o else None
         self.button_background_color = o['button_background_color'] if 'button_background_color' in o else None
         self.button_text_color = o['button_text_color'] if 'button_text_color' in o else None
+        self.font = o['font'] if 'font' in o else None
 
 
     def _set_defaults(self):
@@ -52,4 +53,5 @@ class Options:
             'background_color': self.background_color,
             'button_background_color': self.button_background_color,
             'button_text_color': self.button_text_color,
+            'font': self.font
         }
