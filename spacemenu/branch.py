@@ -76,6 +76,7 @@ class _Branch(_Node):
         buttons = [b.get_button() for b in self._branches + self._leaves if b.shortcut != None]
 
         row = 0
+        print(options.max_columns)
         for i, b in enumerate(buttons):
             row = int(i / (options.max_columns))
             column = i % (options.max_columns)

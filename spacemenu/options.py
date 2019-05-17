@@ -11,10 +11,10 @@ class Options:
 
     def _parse(self):
         o = self._raw_options
-        self.margin = o['margin'] if 'margin' in o else None
+        self.inner_margin = o['inner_margin'] if 'inner_margin' in o else None
         self.column_spacing = o['column_spacing'] if 'column_spacing' in o else None
         self.row_spacing = o['row_spacing'] if 'row_spacing' in o else None
-        self.max_columns = o['max_columns'] if 'max_coluns' in o else None
+        self.max_columns = o['max_columns'] if 'max_columns' in o else None
         self.row_height = o['row_height'] if 'row_height' in o else None
         self.background_color = o['background_color'] if 'background_color' in o else None
         self.button_background_color = o['button_background_color'] if 'button_background_color' in o else None
@@ -23,7 +23,7 @@ class Options:
 
 
     def _set_defaults(self):
-        self.margin = self.margin or 10
+        self.inner_margin = self.inner_margin or 10
         self.column_spacing = self.column_spacing or 1
         self.row_spacing = self.row_spacing or 1
         self.max_columns = self.max_columns or 5
@@ -36,7 +36,7 @@ class Options:
 
 
     def _convert_types(self):
-        self.margin = int(self.margin)
+        self.inner_margin = int(self.inner_margin)
         self.column_spacing = int(self.column_spacing)
         self.row_spacing = int(self.row_spacing)
         self.max_columns = int(self.max_columns)
@@ -45,7 +45,7 @@ class Options:
 
     def get_dictionary(self):
         return {
-            'margin': self.margin,
+            'inner_margin': self.inner_margin,
             'column_spacing': self.column_spacing,
             'row_spacing': self.row_spacing,
             'max_columns': self.max_columns,

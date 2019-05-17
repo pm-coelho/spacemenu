@@ -62,10 +62,10 @@ class Window:
     def _set_size(self, n_rows):
         row_height = self._options.row_height
         row_spacing = self._options.row_spacing
-        margin = self._options.margin
+        inner_margin = self._options.inner_margin
 
         self._width = self._monitor.get_geometry().width
-        self._height = (margin * 2 ) + (n_rows * (row_height + row_spacing))
+        self._height = (inner_margin * 2 ) + (n_rows * (row_height + row_spacing))
 
         self._window.resize(self._width, self._height)
 
@@ -111,6 +111,7 @@ class Window:
 
 
     def _set_style(self, options):
+        self._window.set_border_width(self._options.inner_margin)
         self._style_provider = Gtk.CssProvider()
         self._style_provider.load_from_data(self._construct_css(options))
         self._window.get_style_context().add_provider(
@@ -123,6 +124,9 @@ class Window:
         styles = 'window {'
         if (options.background_color):
             styles += 'background-color: #{}; '.format(options.background_color)
+
+        if (options.inner_margin):
+            styles += 'margin: {}px; '.format(options.inner_margin)
         styles += '} '
 
         styles += 'button {'
@@ -136,11 +140,9 @@ class Window:
             styles += 'font: {};'.format(options.font)
         styles += '} '
 
-
         return bytes(styles.encode())
 
 
     def draw(self):
-        self._window.set_border_width(self._options.margin)
         self._draw_contents(self._root);
         Gtk.main()
