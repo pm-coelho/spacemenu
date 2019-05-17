@@ -120,17 +120,25 @@ class Window:
 
 
     def _construct_css(self, options):
-        styles = ''
-        styles += 'window {{background-color: #{} }}'.format(options.background_color)
-        styles += 'button {{{}; {}; {}; }}'.format(
-            'background-color: #{}'.format(
-                options.button_background_color) if options.button_background_color else '',
-            'color: #{}'.format(options.button_text_color) if options.button_text_color else '',
-            'font: {}'.format(options.font) if options.font else ''
-        )
+        styles = 'window {'
+        if (options.background_color):
+            styles += 'background-color: #{}; '.format(options.background_color)
+        styles += '} '
 
-        print(styles)
+        styles += 'button {'
+        if (options.button_background_color):
+            styles += 'background-color: #{};'.format(options.button_background_color)
+
+        if (options.button_text_color):
+            styles += 'color: #{};'.format(options.button_text_color)
+
+        if (options.font):
+            styles += 'font: {};'.format(options.font)
+        styles += '} '
+
+
         return bytes(styles.encode())
+
 
     def draw(self):
         self._window.set_border_width(self._options.margin)
