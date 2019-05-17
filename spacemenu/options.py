@@ -20,6 +20,10 @@ class Options:
         self.button_background_color = o['button_background_color'] if 'button_background_color' in o else None
         self.button_text_color = o['button_text_color'] if 'button_text_color' in o else None
         self.font = o['font'] if 'font' in o else None
+        self.margin_left = o['margin_left'] if 'margin_left' in o else None
+        self.margin_right = o['margin_right'] if 'margin_right' in o else None
+        self.margin_top = o['margin_top'] if 'margin_top' in o else None
+        self.margin_bottom = o['margin_bottom'] if 'margin_bottom' in o else None
 
 
     def _set_defaults(self):
@@ -28,6 +32,10 @@ class Options:
         self.row_spacing = self.row_spacing or 1
         self.max_columns = self.max_columns or 5
         self.row_height = self.row_height or 35
+        self.margin_left = self.margin_left or 0
+        self.margin_right = self.margin_right or 0
+        self.margin_top = self.margin_top or 0
+        self.margin_bottom = self.margin_bottom or 0
 
 
     def _validate_limits(self):
@@ -41,6 +49,10 @@ class Options:
         self.row_spacing = int(self.row_spacing)
         self.max_columns = int(self.max_columns)
         self.row_height = int(self.row_height)
+        self.margin_left = int(self.margin_left)
+        self.margin_right = int(self.margin_right)
+        self.margin_top = int(self.margin_top)
+        self.margin_bottom = int(self.margin_bottom)
 
 
     def get_dictionary(self):
@@ -53,5 +65,9 @@ class Options:
             'background_color': self.background_color,
             'button_background_color': self.button_background_color,
             'button_text_color': self.button_text_color,
-            'font': self.font
+            'font': self.font,
+            'margin_left': self.margin_left,
+            'margin_right': self.margin_right,
+            'margin_top': self.margin_top,
+            'margin_bottom': self.margin_bottom,
         }

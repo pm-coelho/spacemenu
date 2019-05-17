@@ -67,14 +67,26 @@ class Window:
         self._width = self._monitor.get_geometry().width
         self._height = (inner_margin * 2 ) + (n_rows * (row_height + row_spacing))
 
+        if (self._options.margin_left): self._width -= self._options.margin_left
+        if (self._options.margin_right): self._width -= self._options.margin_right
+
         self._window.resize(self._width, self._height)
 
 
+    # TODO: this will need thought for multiple screens
     def _place(self):
         screen_height = self._screen.get_height()
         self._window.set_gravity(Gdk.Gravity.SOUTH_WEST)
-        (x, y)= self._window.get_position()
-        self._window.move(x, screen_height - self._height)
+        (x, _)= self._window.get_position()
+
+        if (self._options.margin_left): x += self._options.margin_left
+
+        y = screen_height - self._height
+        if (self._options.margin_bottom):
+            y -= self._options.margin_bottom
+
+
+        self._window.move(x, y)
 
 
     def _on_key_press(self, window, event):
