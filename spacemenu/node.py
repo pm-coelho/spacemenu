@@ -9,9 +9,9 @@ class _Node:
         self.shortcut = None
 
     def _on_click(self, button, args):
-        type = self.__class__.__name__.lower()
+        button_type = self.__class__.__name__.lower()
         window = button.get_parent().get_parent()
-        window.emit(type, self)
+        window.emit(button_type[1:], self)
 
     def set_shortcut(self, shortcut):
         self.shortcut = shortcut

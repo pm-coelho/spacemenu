@@ -141,7 +141,6 @@ class Window:
 
 
     def _construct_css(self, options):
-        # WINDOW
         styles = 'window {'
         if (options.background_color):
             styles += 'background-color: #{}; '.format(options.background_color)
@@ -149,7 +148,6 @@ class Window:
             styles += 'margin: {}px; '.format(options.inner_margin)
         styles += '} '
 
-        # BUTTON
         styles += 'button {'
         if (options.button_background_color):
             styles += 'background-color: #{};'.format(options.button_background_color)
@@ -159,7 +157,6 @@ class Window:
             styles += 'font: {};'.format(options.font)
         styles += '} '
 
-        # BRANCH BUTTON
         styles += '.branch_button {'
         if (options.branch_background_color):
             styles += 'background-color: #{};'.format(options.branch_background_color)
@@ -167,7 +164,6 @@ class Window:
             styles += 'color: #{};'.format(options.branch_text_color)
         styles += '} '
 
-        # LEAF BUTTON
         styles += '.leaf_button {'
         if (options.leaf_background_color):
             styles += 'background-color: #{};'.format(options.leaf_background_color)
