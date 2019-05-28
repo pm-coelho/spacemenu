@@ -3,6 +3,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from random import choice
+from uuid import uuid4
 
 from .node import _Node
 from .leaf import _Leaf
@@ -11,6 +12,7 @@ from .leaf import _Leaf
 class _Branch(_Node):
     def __init__(self, label, branches, leaves, style_provider):
         super(_Branch, self).__init__(label, style_provider)
+        self.uuid = uuid4()
         self._branches = sorted(
             [_Branch(b['label'], b['branches'], b['leaves'], style_provider) for b in branches],
             key = lambda b: b.label

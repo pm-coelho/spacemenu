@@ -6,6 +6,7 @@ from .branch import _Branch
 from .options import Options
 
 # TODO: allow externally defined shortcuts
+# TODO: back navigations is bugged
 
 class Window:
     def __init__(self, root, options = None):
@@ -46,7 +47,13 @@ class Window:
 
 
     def _draw_contents(self, branch):
-        self._previous_branch = self._current_branch if hasattr(self,'_current_branch') else None
+        if (not hasattr(self, '_previous_branches')):
+            self._previous_branches = []
+
+        if (hasattr(self, '_current_branch')
+            and not any(x.uuid == branch.uuid for x in self._previous_branches)):
+            self._previous_branches.append(self._current_branch)
+
         self._current_branch = branch
 
         [self._window.remove(e) for e in self._window.get_children()]
@@ -79,12 +86,12 @@ class Window:
         self._window.set_gravity(Gdk.Gravity.SOUTH_WEST)
         (x, _)= self._window.get_position()
 
-        if (self._options.margin_left): x += self._options.margin_left
-
         y = screen_height - self._height
         if (self._options.margin_bottom):
             y -= self._options.margin_bottom
 
+        if (self._root.uuid == self._current_branch.uuid):
+            if (self._options.margin_left): x += self._options.margin_left
 
         self._window.move(x, y)
 
@@ -96,9 +103,10 @@ class Window:
             Gtk.main_quit()
             return
 
-        if (key == 'b'):
-            if (self._previous_branch):
-                self._window.emit('branch', self._previous_branch)
+        if (key == 'b' and len(self._previous_branches) > 0):
+            previous_branch = self._previous_branches.pop()
+            if (previous_branch):
+                self._window.emit('branch', previous_branch)
             else:
                 Gtk.main_quit()
 
@@ -133,23 +141,38 @@ class Window:
 
 
     def _construct_css(self, options):
+        # WINDOW
         styles = 'window {'
         if (options.background_color):
             styles += 'background-color: #{}; '.format(options.background_color)
-
         if (options.inner_margin):
             styles += 'margin: {}px; '.format(options.inner_margin)
         styles += '} '
 
+        # BUTTON
         styles += 'button {'
         if (options.button_background_color):
             styles += 'background-color: #{};'.format(options.button_background_color)
-
         if (options.button_text_color):
             styles += 'color: #{};'.format(options.button_text_color)
-
         if (options.font):
             styles += 'font: {};'.format(options.font)
+        styles += '} '
+
+        # BRANCH BUTTON
+        styles += '.branch_button {'
+        if (options.branch_background_color):
+            styles += 'background-color: #{};'.format(options.branch_background_color)
+        if (options.branch_text_color):
+            styles += 'color: #{};'.format(options.branch_text_color)
+        styles += '} '
+
+        # LEAF BUTTON
+        styles += '.leaf_button {'
+        if (options.leaf_background_color):
+            styles += 'background-color: #{};'.format(options.leaf_background_color)
+        if (options.leaf_text_color):
+            styles += 'color: #{};'.format(options.leaf_text_color)
         styles += '} '
 
         return bytes(styles.encode())

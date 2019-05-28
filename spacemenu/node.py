@@ -26,6 +26,14 @@ class _Node:
 
         button.connect('clicked', self._on_click, None)
 
+        if (type(self).__name__ == '_Branch'):
+            styleContext = button.get_style_context()
+            styleContext.add_class('branch_button')
+
+        if (type(self).__name__ == '_Leaf'):
+            styleContext = button.get_style_context()
+            styleContext.add_class('leaf_button')
+
         button.get_style_context().add_provider(
             self._style_provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION

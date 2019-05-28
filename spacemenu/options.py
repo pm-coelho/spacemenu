@@ -23,6 +23,10 @@ class Options:
         self.background_color = o['background_color'] if 'background_color' in o else None
         self.button_background_color = o['button_background_color'] if 'button_background_color' in o else None
         self.button_text_color = o['button_text_color'] if 'button_text_color' in o else None
+        self.branch_background_color = o['branch_background_color'] if 'branch_background_color' in o else None
+        self.branch_text_color = o['branch_text_color'] if 'branch_text_color' in o else None
+        self.leaf_background_color = o['leaf_background_color'] if 'leaf_background_color' in o else None
+        self.leaf_text_color = o['leaf_text_color'] if 'leaf_text_color' in o else None
 
 
     def _set_defaults(self):
@@ -60,6 +64,12 @@ class Options:
         if(self.button_text_color and self.button_text_color[0] == '#'):
             self.button_text_color = self.button_text_color[1:]
 
+        if(self.branch_background_color and self.branch_background_color[0] == '#'):
+            self.branch_background_color = self.branch_background_color[1:]
+
+        if(self.leaf_text_color and self.leaf_text_color[0] == '#'):
+            self.leaf_text_color = self.leaf_text_color[1:]
+
 
     def get_dictionary(self):
         return {
@@ -71,6 +81,10 @@ class Options:
             'background_color': self.background_color,
             'button_background_color': self.button_background_color,
             'button_text_color': self.button_text_color,
+            'branch_background_color': self.branch_background_color,
+            'branch_text_color': self.branch_text_color,
+            'leaf_background_color': self.leaf_background_color,
+            'leaf_text_color': self.leaf_text_color,
             'font': self.font,
             'margin_left': self.margin_left,
             'margin_right': self.margin_right,
