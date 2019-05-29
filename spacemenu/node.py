@@ -8,10 +8,12 @@ class _Node:
         self.label = label
         self.shortcut = None
 
+
     def _on_click(self, button, args):
         button_type = self.__class__.__name__.lower()
         window = button.get_parent().get_parent()
         window.emit(button_type[1:], self)
+
 
     def set_shortcut(self, shortcut):
         self.shortcut = shortcut
@@ -53,7 +55,7 @@ class _Node:
         ) if (label_color != None) else '{label:10}'.format(label = self.label)
 
         for child in button.get_children():
-            child.set_label('{} {} {}'.format(shortcut, separator, label))
+            child.set_label('<b>{}</b> {} {}'.format(shortcut, separator, label))
             child.set_use_markup(True)
 
 

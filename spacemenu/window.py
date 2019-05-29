@@ -6,7 +6,7 @@ from .branch import _Branch
 from .options import Options
 
 # TODO: allow externally defined shortcuts
-# TODO: back navigations is bugged
+# TODO: back navigations is bugged (only backs 1, margin x not working)
 
 class Window:
     def __init__(self, root, options = None):
@@ -90,8 +90,8 @@ class Window:
         if (self._options.margin_bottom):
             y -= self._options.margin_bottom
 
-        if (self._root.uuid == self._current_branch.uuid):
-            if (self._options.margin_left): x += self._options.margin_left
+        if (self._root.uuid == self._current_branch.uuid and self._options.margin_left):
+            x += self._options.margin_left
 
         self._window.move(x, y)
 
