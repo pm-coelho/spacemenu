@@ -75,7 +75,7 @@ class _Branch(_Node):
         grid.set_row_spacing(options.row_spacing)
         grid.set_column_homogeneous(True)
         grid.set_row_homogeneous(True)
-        buttons = [b.get_button() for b in self._branches + self._leaves if b.shortcut != None]
+        buttons = [b.get_button(options) for b in self._branches + self._leaves if b.shortcut != None]
 
         row = 0
         for i, b in enumerate(buttons):

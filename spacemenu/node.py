@@ -17,22 +17,47 @@ class _Node:
         self.shortcut = shortcut
 
 
-    def get_button(self):
-        button = Gtk.Button.new_with_label('{shortcut:1}{separator:2}{label:10}'.format(
-            shortcut = self.shortcut,
-            separator = '->',
-            label= self.label
-        ))
+    def get_button(self, options):
+        button = Gtk.Button("")
 
-        button.connect('clicked', self._on_click, None)
+        shortcut_color = None
+        separator_color = None
+        label_color = None
 
         if (type(self).__name__ == '_Branch'):
-            styleContext = button.get_style_context()
-            styleContext.add_class('branch_button')
+            style_context = button.get_style_context()
+            style_context.add_class('branch_button')
+            shortcut_color = options.branch_text_shortcut_color
+            separator_color = options.branch_text_separator_color
+            label_color = options.branch_text_label_color
+        elif (type(self).__name__ == '_Leaf'):
+            style_context = button.get_style_context()
+            style_context.add_class('leaf_button')
+            shortcut_color = options.leaf_text_shortcut_color
+            separator_color = options.leaf_text_separator_color
+            label_color = options.leaf_text_label_color
 
-        if (type(self).__name__ == '_Leaf'):
-            styleContext = button.get_style_context()
-            styleContext.add_class('leaf_button')
+        shortcut = '<span color="#{color}">{shortcut:1}</span>'.format(
+            color = shortcut_color,
+            shortcut = self.shortcut
+        ) if (shortcut_color != None) else '{shortcut:1}'.format(shortcut = self.shortcut)
+
+        separator = '<span color="#{color}">{separator:2}</span>'.format(
+            color = separator_color,
+            separator = '->'
+        ) if (separator_color != None) else '{separator:2}'.format(separator = '->')
+
+        label = '<span color="#{color}">{label:10}</span>'.format(
+            color = label_color,
+            label = self.label
+        ) if (label_color != None) else '{label:10}'.format(label = self.label)
+
+        for child in button.get_children():
+            child.set_label('{} {} {}'.format(shortcut, separator, label))
+            child.set_use_markup(True)
+
+
+        button.connect('clicked', self._on_click, None)
 
         button.get_style_context().add_provider(
             self._style_provider,
