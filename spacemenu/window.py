@@ -21,6 +21,7 @@ class Window:
 
         self._root = _Branch(root['label'], root['branches'], root['leaves'], self._style_provider)
         self._init_signals()
+        self._rendered = False
 
 
     def _init_signals(self):
@@ -90,7 +91,7 @@ class Window:
         if (self._options.margin_bottom):
             y -= self._options.margin_bottom
 
-        if (self._root.uuid == self._current_branch.uuid and self._options.margin_left):
+        if (not self._rendered and self._options.margin_left):
             x += self._options.margin_left
 
         self._window.move(x, y)
@@ -176,4 +177,5 @@ class Window:
 
     def draw(self):
         self._draw_contents(self._root);
+        self._rendered = True
         Gtk.main()
