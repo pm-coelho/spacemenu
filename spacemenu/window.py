@@ -6,7 +6,6 @@ from .branch import _Branch
 from .options import Options
 
 # TODO: allow externally defined shortcuts
-# TODO: back navigations is bugged (only backs 1, margin x not working)
 
 class Window:
     def __init__(self, root, options = None):
@@ -51,8 +50,12 @@ class Window:
         if (not hasattr(self, '_previous_branches')):
             self._previous_branches = []
 
-        if (hasattr(self, '_current_branch')
-            and not any(x.uuid == branch.uuid for x in self._previous_branches)):
+
+        if (len(self._previous_branches) == 0 and hasattr(self, '_current_branch')):
+            self._previous_branches.append(self._current_branch)
+        elif (len(self._previous_branches) > 0 and self._previous_branches[-1].uuid == branch.uuid):
+            self._previous_branches = self._previous_branches[:-1]
+        elif (hasattr(self, '_current_branch')):
             self._previous_branches.append(self._current_branch)
 
         self._current_branch = branch
@@ -105,7 +108,7 @@ class Window:
             return
 
         if (key == 'b' and len(self._previous_branches) > 0):
-            previous_branch = self._previous_branches.pop()
+            previous_branch = self._previous_branches[-1]
             if (previous_branch):
                 self._window.emit('branch', previous_branch)
             else:
