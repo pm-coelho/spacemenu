@@ -53,13 +53,23 @@ options -> Options can either be a dictonary or an Options object
   "margin_left": 0,
   "margin_right": 0,
   "margin_bottom": 0,
+  "font": "italic bold 12px Georgia, serif",
   "background_color": "#ffffff"
   "button_background_color": "#ffffff"
-  "button_text_color": "#ffffff"
-  "font": "italic bold 12px Georgia, serif",
+  "button_text_color": "#000000"
+  "branch_background_color": "#ffffff",
+  "branch_text_color": "#ffffff",
+  "branch_text_shortcut_color": "#ff0000",
+  "branch_text_separator_color": "#00ff00",
+  "branch_text_label_color": "#0000ff",
+  "leaf_background_color": "#ffffff",
+  "leaf_text_color": "#000000",
+  "leaf_text_shortcut_color": "#ff0000",
+  "leaf_text_separator_color': "#00ff00",
+  "leaf_text_label_color": "#0000ff"
 }
 ```
-More options will be added
+note: any undefined values will be set to the Gtk theme default
 
 #### Methods
 draw() -> draw the window
@@ -84,6 +94,7 @@ draw() -> draw the window
   * button_text_color: The color for the text of the buttons(#rrggbb)
 
 ## TODO
+  * allow externally defined shortcuts
 
 ## License
 GPL-3.0-or-later 
